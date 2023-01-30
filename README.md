@@ -1,6 +1,9 @@
 # Dice Analysis
 A python script that determines the likelyhood of any total roll given a number of dice and sides per die.
 
+## Install
+A full list of dependancies can be found in "requirements.txt". To automatically install the dependancies run "pip install -r requirements.txt"
+
 ## Usage
 
 ### Input
