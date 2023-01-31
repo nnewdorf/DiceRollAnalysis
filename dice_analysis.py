@@ -1,15 +1,14 @@
 import decimal
+import itertools
 import math
 import numpy as np
 import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
 
-def find_roll_spread(num_dice, num_sides):
-    xaxis,yaxis = full_theoretical_distribution(num_dice, num_sides)
+def find_roll_spread(xaxis, yaxis):
     percentage_chart = create_percentage_chart(xaxis, yaxis)
     print(percentage_chart.to_string())
-    print_min_mean_max(num_dice, num_sides)
     create_plot(percentage_chart)
 
 def print_min_mean_max(num_dice, num_sides):
@@ -43,13 +42,36 @@ def full_theoretical_distribution(num_dice, num_sides):
     distribution = np.zeros(len(roll_total_range)) 
     for index, roll_total in enumerate(range(num_dice,num_dice*num_sides+1)):
         distribution[index] = prob_of_each_num(roll_total)
-    return roll_total_range, distribution
+    return (roll_total_range, distribution)
 
+def add_distributions(distributions):
+    lowest = 0
+    highest = 0
+    for distribution in distributions:
+        lowest += distribution[0][0]
+        highest += distribution[0][-1]
+    
+    roll_range = [x for x in range(lowest, highest+1)]
+    roll_distribution = [0 for x in range(lowest, highest+1)]
+
+    ranges = [distribution[0] for distribution in distributions]
+    all_combos = itertools.product(*ranges)
+    for combo in all_combos:
+        prod = 1
+        total = 0
+        for index, num in enumerate(combo):
+            lowest_num = distributions[index][0][0]
+            prod *= distributions[index][1][num-lowest_num]
+            total += num
+        roll_distribution[total-lowest] += prod
+    
+    return (roll_range, roll_distribution)
+    
 def create_percentage_chart(roll_total_range, distribution):
-    distribution_to_min_roll = [0 for x in range(0, roll_total_range[0])]
-    distribution = [*distribution_to_min_roll, *distribution]
-
+    
     zero_to_min_roll = range(0, roll_total_range[0])
+    distribution_to_min_roll = [0 for x in zero_to_min_roll]
+    distribution = [*distribution_to_min_roll, *distribution]
     roll_total_range = [*zero_to_min_roll, *roll_total_range]
     
     percentage = ['' for x in range(0,len(distribution))]
@@ -87,4 +109,3 @@ def main():
 
 
 decimal.getcontext().prec = 50
-main()

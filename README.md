@@ -7,10 +7,11 @@ A full list of dependancies can be found in "requirements.txt". To automatically
 ## Usage
 
 ### Input
+You can add together dice rolls and constants in the following format
 ```
-How many dice (or quit to exit)?
-How many sides per die?
+xd + xdx + n 
 ```
+
 ### Output
 ```
     total percent  decimal
