@@ -9,7 +9,7 @@ A full list of dependancies can be found in "requirements.txt". To automatically
 ### Input
 You can add together dice rolls and constants in the following format
 ```
-xd + xdx + n 
+xdx + xdx + n 
 ```
 
 ### Output
