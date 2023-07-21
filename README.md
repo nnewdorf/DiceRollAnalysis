@@ -34,6 +34,4 @@ https://towardsdatascience.com/modelling-the-probability-distributions-of-dice-b
 Python can only handle certain precisions for floating point numbers. The Decimal package was used to mitigate errors occuring because of this, but if the number of dice or sides get too large, errors might occur. Try increasing the Decimal percision to fix this.
 
 ## Future Enhancements
-* Add the ability to add constants to dice roll
-* Add ability to add 2 different types of dice together
-* Create a regex parser for dice roll input (ie. 4d4 + 2 + 5d6)
+* Clean up labeling on seaborn plot
